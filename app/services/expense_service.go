@@ -25,7 +25,7 @@ func (e *ExpensesService) List(
 
 	res, err := e.repository.List(ctx, filters)
 	if err != nil {
-		log.Errorf("resource: expenses, action: list, error: %w", err)
+		log.Errorf("resource: expenses, action: list, error: %s", err.Error())
 
 		return entities.PaginatedExpenses{}, err
 	}
@@ -43,7 +43,7 @@ func (e *ExpensesService) Find(
 
 	res, err := e.repository.Find(ctx, id)
 	if err != nil {
-		log.Errorf("resource: expenses, action: find, id: %s, error: %w", id, err)
+		log.Errorf("resource: expenses, action: find, id: %s, error: %s", id, err.Error())
 
 		return entities.Expense{}, err
 	}
@@ -63,7 +63,7 @@ func (e *ExpensesService) Create(
 
 	res, err := e.repository.Create(ctx, expense)
 	if err != nil {
-		log.Errorf("resource: expenses, action: create, error: %w", err)
+		log.Errorf("resource: expenses, action: create, error: %s", err.Error())
 
 		return entities.Expense{}, err
 	}
@@ -81,7 +81,7 @@ func (e *ExpensesService) Update(
 
 	res, err := e.repository.Update(ctx, expense)
 	if err != nil {
-		log.Errorf("resource: expenses, action: update, id: %s, error: %w", expense.ID, err)
+		log.Errorf("resource: expenses, action: update, id: %s, error: %s", expense.ID, err.Error())
 
 		return entities.Expense{}, err
 	}
@@ -98,7 +98,7 @@ func (e *ExpensesService) Delete(
 	}
 
 	if err := e.repository.Delete(ctx, id); err != nil {
-		log.Errorf("resource: expenses, action: delete, id: %s, error: %w", id, err)
+		log.Errorf("resource: expenses, action: delete, id: %s, error: %s", id, err.Error())
 
 		return err
 	}
@@ -140,7 +140,7 @@ func (e *ExpensesService) Import(
 	wg.Wait()
 
 	if err := errors.Join(errs...); err != nil {
-		log.Errorf("resource: expenses, action: import, error: %w", err)
+		log.Errorf("resource: expenses, action: import, error: %s", err.Error())
 
 		return err
 	}
