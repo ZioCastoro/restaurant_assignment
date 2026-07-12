@@ -12,5 +12,5 @@ type ExpenseServiceInterface interface {
 	Create(ctx context.Context, expense entities.Expense) (entities.Expense, error)
 	Update(ctx context.Context, expense entities.Expense) (entities.Expense, error)
 	Delete(ctx context.Context, id string) error
-	Import(ctx context.Context, expenses []entities.Expense)
+	Import(ctx context.Context, expenses []entities.Expense) error
 }

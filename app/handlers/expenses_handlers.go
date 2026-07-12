@@ -113,6 +113,7 @@ func (e *ExpensesHandler) Import(ctx *fiber.Ctx) error {
 
 	expenses := req.MapToEntity()
 
+	// imports expenses asynchronously. Error is logged but ignored here.
 	go e.service.Import(ctx.Context(), expenses)
 
 	return ctx.SendStatus(fiber.StatusAccepted)

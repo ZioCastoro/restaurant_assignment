@@ -109,9 +109,9 @@ func (e *ExpensesService) Delete(
 func (e *ExpensesService) Import(
 	ctx context.Context,
 	expenses []entities.Expense,
-) {
+) error {
 	if ctx.Err() != nil {
-		return
+		return ctx.Err()
 	}
 
 	ctx, cancel := context.WithTimeout(ctx, 10*time.Minute)
@@ -141,8 +141,12 @@ func (e *ExpensesService) Import(
 
 	if err := errors.Join(errs...); err != nil {
 		log.Errorf("resource: expenses, action: import, error: %w", err)
+
+		return err
 	}
 	// TODO: send a notification to the user with the result of the import.
+
+	return nil
 }
 
 var _ ExpenseServiceInterface = new(ExpensesService)
